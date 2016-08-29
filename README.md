@@ -1,6 +1,5 @@
-=====
 django-qgis-plugin-repository
-=====
+=============================
 
 Django reusable application providing a simple way to self-host a QGIS
 plugin repository within a django project.
@@ -11,11 +10,12 @@ Quick start
 -----------
 
 1. Add "qgis_plugin_repository" to your INSTALLED_APPS setting like this::
-
+    ```
     INSTALLED_APPS = [
         ...
         'qgis_plugin_repository',
     ]
+    ```
 
 2. Run `python manage.py migrate` to create the qgis_plugin_repository models.
 
