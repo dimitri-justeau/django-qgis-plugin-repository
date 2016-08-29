@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import os
+from datetime import datetime
 
 from django.db import models
 from django.core.files.storage import FileSystemStorage
@@ -9,7 +10,7 @@ from django.conf import settings
 
 class OverwriteStorage(FileSystemStorage):
 
-    def get_available_name(self, name):
+    def get_available_name(self, name, max_length=None):
         """
         Returns a filename that's free on the target storage system, and
         available for new content to be written to.
@@ -32,27 +33,45 @@ class QgisPlugin(models.Model):
     )
 
     name = models.CharField(max_length=50, unique=True)
-    version = models.CharField(max_length=20)
+    qgisMinimumVersion = models.CharField(max_length=20)
+    qgisMaximumVersion = models.CharField(max_length=20, null=True, blank=True)
     description = models.CharField(max_length=255)
-    about = models.CharField(max_length=255, null=True, blank=True)
+    about = models.CharField(max_length=255)
+    version = models.CharField(max_length=20)
+    author = models.CharField(max_length=100)
+    email = models.CharField(max_length=100)
+    changelog = models.CharField(max_length=255, null=True, blank=True)
+    experimental = models.BooleanField(default=False)
+    deprecated = models.BooleanField(default=False)
+    tags = models.CharField(max_length=255)
+    homepage = models.CharField(max_length=100, null=True, blank=True)
+    repository = models.CharField(max_length=100)
+    tracker = models.CharField(max_length=100, null=True, blank=True)
+    icon = models.CharField(max_length=100, null=True, blank=True)
+    category = models.CharField(max_length=100, null=True, blank=True)
     file = models.FileField(
         upload_to=QGIS_PLUGIN_DOWNLOAD_PATH,
         storage=OverwriteStorage()
     )
-    is_trusted = models.BooleanField(default=False)
-    qgis_minimum_version = models.CharField(max_length=20)
-    qgis_maximum_version = models.CharField(max_length=20)
-    homepage = models.CharField(max_length=50, null=True, blank=True)
-    uploaded_by = models.CharField(max_length=100)
-    create_date = models.DateField()
-    update_date = models.DateField(null=True, blank=True)
-    is_experimental = models.BooleanField(default=False)
-    is_deprecated = models.BooleanField(default=False)
+    create_date = models.DateTimeField()
+    update_date = models.DateTimeField(null=True, blank=True)
 
     @property
-    def filename(self):
-        return self.file.name.split('/')[1]
+    def file_name(self):
+        if len(self.file.name.split("/")) > 1:
+            return self.file.name.split("/")[1]
+        return self.file.name
 
     @property
     def download_url(self):
         return self.file.url
+
+    def save(self, *args, **kwargs):
+        """
+        Overload of save method: fill the fields using metadata.txt from the
+        plugin zip file.
+        """
+        if not self.id:
+            self.create_date = datetime.now()
+        self.update_date = datetime.now()
+        super(QgisPlugin, self).save(*args, **kwargs)
