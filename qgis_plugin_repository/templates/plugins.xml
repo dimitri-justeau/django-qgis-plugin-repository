@@ -1,0 +1,25 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<plugins>
+    {% for plugin in qgis_plugins %}
+
+    <pyqgis_plugin name="{{ plugin.name }}" version="{{ plugin.version }}" plugin_id="{{ plugin.id }}">
+        <description><![CDATA[{{ plugin.description }}]]></description>
+        <about><![CDATA[{{ plugin.about }}]]></about>
+        <version>{{ plugin.version }}</version>
+        <trusted>{{ plugin.is_trusted }}</trusted>
+        <qgis_minimum_version>{{ plugin.qgis_minimum_version }}</qgis_minimum_version>
+        <qgis_maximum_version>{{ plugin.qgis_maximum_version }}</qgis_maximum_version>
+        <homepage><![CDATA[{{ plugin.homepage }}]]></homepage>
+        <file_name>{{ plugin.filename }}</file_name>
+        <icon>{{ plugin.icon_url }}</icon>
+        <author_name><![CDATA[{{ plugin.author_name }}]]></author_name>
+        <download_url>http://{{ request.get_host }}/{{ plugin.download_url }}</download_url>
+        <uploaded_by><![CDATA[{{ plugin.uploaded_by }}]]></uploaded_by>
+        <create_date>{{ plugin.create_date }}</create_date>
+        <update_date>{{ plugin.update_date }}</update_date>
+        <experimental>{{ plugin.is_experimental }}</experimental>
+        <deprecated>{{ plugin.is_deprecated }}</deprecated>
+    </pyqgis_plugin>
+
+    {% endfor %}
+</plugins>

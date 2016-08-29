@@ -1,0 +1,5 @@
+include LICENSE
+include README.rst
+recursive-include qgis_plugin_repository/static *
+recursive-include qgis_plugin_repository/templates *
+recursive-include docs *
