@@ -66,6 +66,9 @@ class QgisPlugin(models.Model):
     def download_url(self):
         return self.file.url
 
+    def __str__(self):
+        return "{} - {}".format(self.name, self.version)
+
     def save(self, *args, **kwargs):
         """
         Overload of save method: fill the fields using metadata.txt from the
