@@ -10,7 +10,7 @@ Detailed documentation is in the "docs" directory.
 Installation
 ------------
     
-# From source:
+### From source:
 
 Download the source code, and execute the following command inside the source code directory: `python setup.py develop`.
 
