@@ -6,6 +6,15 @@ plugin repository within a django project.
 
 Detailed documentation is in the "docs" directory.
 
+
+Installation
+------------
+    
+# From source:
+
+Download the source code, and execute the following command inside the source code directory: `python setup.py develop`.
+
+
 Quick start
 -----------
 
@@ -23,4 +32,4 @@ Quick start
 
 4. Upload your plugins using the django admin interface. Each plugin must be packed in a .zip archive, with a metadata.txt containing at least the mandatory parameters as described here: http://docs.qgis.org/testing/en/docs/pyqgis_developer_cookbook/plugins.html#plugin-metadata
 
-5. Add [your_host]/qgis_plugin_repository/ as a new plugin repository in your QGIS client(s).
+5. Add `[your_host]/qgis_plugin_repository/` as a new plugin repository in your QGIS client(s).
