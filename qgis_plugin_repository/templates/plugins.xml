@@ -12,7 +12,7 @@
         <file_name>{{ plugin.file_name }}</file_name>
         <icon>{% firstof plugin.icon "" %}</icon>
         <author_name><![CDATA[{{ plugin.author }}]]></author_name>
-        <download_url>http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{{ plugin.download_url }}</download_url>
+        <download_url>https://{{ request.get_host }}{{ plugin.download_url }}</download_url>
         <uploaded_by><![CDATA[{{ request.user.get_full_name }}]]></uploaded_by>
         <create_date>{{ plugin.create_date }}</create_date>
         <update_date>{{ plugin.update_date }}</update_date>
